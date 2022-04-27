@@ -39,7 +39,7 @@ macro jump(u, d, l, r)
     when "left"; y+= {{l}}
     when "right"; y+= {{r}}
     end
-    if dirg[y][x].in_set? "5428"
+    if dirg[y][x].in_set? "6428"
         puts "ERROR: Attempt to jump inward while in corner."
         exit
     end
