@@ -89,10 +89,10 @@ while turn < dirg.size
             puts "ERROR: Invalid Character '" + grid[y][x] + "'."
             exit
         end
-    end
-    if grid[y][x] == 'H' && offset == 0
-        puts "ERROR: Attempt to jump out of bounds."
-        exit
+        if grid[y][x] == 'H' && offset == 0
+            puts "ERROR: Attempt to jump out of bounds."
+            exit
+        end
     end
     if x==offset&&y==offset+2
         dir="right"; turn+=1; corner=true
