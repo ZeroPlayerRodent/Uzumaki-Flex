@@ -75,7 +75,25 @@ while i < code.size
 end
 dirg = grid.clone
 dirg[1][0] = '%'
+output = false
 while turn < dirg.size
+    if grid[y][x] == '#'
+        if output == false
+            output = true
+        else
+            output = false
+        end
+    end
+    if output == false
+        if !grid[y][x].in_set? "QIDPMOCAXSGWJKRHBVZVE#"
+            puts "ERROR: Invalid Character '" + grid[y][x] + "'."
+            exit
+        end
+    end
+    if grid[y][x] == 'H' && offset == 0
+        puts "ERROR: Attempt to jump out of bounds."
+        exit
+    end
     if x==offset&&y==offset+2
         dir="right"; turn+=1; corner=true
         offset+=2
