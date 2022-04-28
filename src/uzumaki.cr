@@ -50,6 +50,10 @@ macro jump(u, d, l, r)
         when "left"; y+= {{l}}
         when "right"; y+= {{r}}
         end
+        if x < 0
+            puts "ERROR: IP out of bounds!"
+            exit
+        end
     end
 end
 
@@ -77,6 +81,10 @@ dirg = grid.clone
 dirg[1][0] = '%'
 output = false
 while turn < dirg.size
+    if grid[y].size != grid.size
+        puts "Not a perfect spiral!"
+        exit
+    end
     if grid[y][x] == '#'
         if output == false
             output = true
@@ -133,10 +141,6 @@ back = -1
 front = 0
 while 0
     jumpin = false
-    if grid[y].size != grid.size
-        print "Not a perfect spiral!"
-        exit
-    end
     if !grid[y][x].in_set? "QIDPMOCAXSGWJKRHBVZVE#"
         puts "ERROR: Invalid Character '" + grid[y][x] + "'."
         exit
@@ -177,4 +181,4 @@ while 0
     if jumpin == false
         move
     end
-end
+end 
