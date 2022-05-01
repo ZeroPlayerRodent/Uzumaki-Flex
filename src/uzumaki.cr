@@ -16,6 +16,15 @@ macro move
     when '0'; exit
     end
 end
+macro get_dir
+    case dirg[y][x]
+    when '6'; dir = "right"
+    when '4'; dir = "left"
+    when '2'; dir = "up"
+    when '8'; dir = "down"
+    when '0'; exit
+    end
+end
 macro get_a
   if byte = STDIN.read_byte
     queue.insert(back, byte.to_big_i)
@@ -97,10 +106,6 @@ while turn < dirg.size
             puts "ERROR: Invalid Character '" + grid[y][x] + "'."
             exit
         end
-        if grid[y][x] == 'H' && offset == 0
-            puts "ERROR: Attempt to jump out of bounds."
-            exit
-        end
     end
     if x==offset&&y==offset+2
         dir="right"; turn+=1; corner=true
@@ -114,6 +119,12 @@ while turn < dirg.size
     end
     if x==length-offset&&y==length-offset
         dir="left"; turn+=1; corner=true
+    end
+    if output == false
+        if grid[y][x] == 'H' && offset == 0
+            puts "ERROR: Attempt to jump out of bounds."
+            exit
+        end
     end
     case dir
     when "right"; dirg[y][x]='6';
@@ -140,6 +151,7 @@ x=0.to_big_i
 back = -1
 front = 0
 while 0
+    get_dir
     jumpin = false
     if !grid[y][x].in_set? "QIDPMOCAXSGWJKRHBVZVE#"
         puts "ERROR: Invalid Character '" + grid[y][x] + "'."
