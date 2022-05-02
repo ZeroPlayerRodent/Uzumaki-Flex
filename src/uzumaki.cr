@@ -22,7 +22,6 @@ macro get_dir
     when '4'; dir = "left"
     when '2'; dir = "up"
     when '8'; dir = "down"
-    when '0'; exit
     end
 end
 macro get_a
@@ -193,4 +192,4 @@ while 0
     if jumpin == false
         move
     end
-end 
+end  
