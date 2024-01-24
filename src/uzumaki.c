@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#define SIZE 500// Maximum size/width of a spiral
+#define SIZE 250 // Maximum size/width of a spiral
 
 char spiral[SIZE][SIZE], movespiral[SIZE][SIZE]; // Initialize 2D arrays of commands and movement directions
 
@@ -27,10 +27,15 @@ void jumpin(){ // Make IP jump inwards
   jumping = 1;
   rotate(0);
   move(1);
-  if (movespiral[posy][posx] != 0){
+  if (movespiral[posy][posx] != 0){ // Check if program tries to jump inwards on a corner
     printf("\nERROR: ATTEMPT TO JUMP INWARDS WHILE ON CORNER."); exit(0);
   }
-  while (movespiral[posy][posx] == 0){move(1);}
+  while (movespiral[posy][posx] == 0){
+    move(1);
+    if (posx < 0){ // Check if IP is out of bounds
+      printf("\nERROR: THE IP FLEW AWAY, NEVER TO BE SEEN AGAIN."); exit(0);
+    }
+  }
   direction = movespiral[posy][posx];
 }
 
@@ -44,10 +49,14 @@ void jumpout(){ // Make IP jump outwards
 
 int printmode = 0, back = 0;
 
-long long accumulator = 0, queue[1000], qtwo[1000]; // Initialize accumulator and queue
+long long accumulator = 0, queue[2000], qtwo[2000]; // Initialize accumulator and queue
 
 void enqueue(long long toq) { // Enqueue value
-  back += 1;
+  back++;
+  if (back == 2000){ // Check if queue is full
+    printf("\nERROR: QUEUE OVERFLOW.");
+    exit(0);
+  }
   queue[back] = toq;
 }
 
@@ -64,7 +73,7 @@ void printqueue() { // Output entire queue
 
 void dequeue() { // Dequeue from queue
   for (int i=0; i < back; i++) {queue[i] = queue[i+1];}
-  back -= 1;
+  back--;
 }
 
 void reverse() { // Reverse queue
@@ -163,7 +172,7 @@ while (fileconts[codex] != 0){ // Fill spiral array with source code
   if (fileconts[codex] == '\n'){
     if (posy == 0){
       edge = codex+1;
-      if (edge > SIZE+1) {
+      if (edge > SIZE+1) { // Check if spiral exceeds maximum size
         printf("\nERROR: SPIRAL TOO BIG TO INTERPRET."); exit(0);
       }
     }
